@@ -3,7 +3,11 @@ import "./globals.css";
 
 export const metadata = {
   title: "من قارئ إلى كاتب",
-  description: "A multilingual story submission website for the book project."
+  description: "A multilingual story submission website for the book project.",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: ["/favicon.svg"]
+  }
 };
 
 export default function RootLayout({ children }) {
