@@ -7,7 +7,7 @@ if (!password) {
   process.exit(1);
 }
 
-const iterations = 310000;
+const iterations = 100000;
 const salt = crypto.randomBytes(18).toString("base64url");
 const hash = crypto.pbkdf2Sync(password, salt, iterations, 32, "sha256").toString("base64url");
 

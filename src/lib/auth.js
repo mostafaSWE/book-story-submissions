@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const ADMIN_SESSION_COOKIE = "book_admin_session";
+export const MAX_PBKDF2_ITERATIONS = 100000;
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -139,7 +140,13 @@ async function verifyPassword(password, storedHash) {
   const [algorithm, iterationsRaw, salt, expectedHash] = storedHash.split(separator);
   const iterations = Number(iterationsRaw);
 
-  if (algorithm !== "pbkdf2_sha256" || !iterations || !salt || !expectedHash) {
+  if (
+    algorithm !== "pbkdf2_sha256" ||
+    !iterations ||
+    iterations > MAX_PBKDF2_ITERATIONS ||
+    !salt ||
+    !expectedHash
+  ) {
     return false;
   }
 

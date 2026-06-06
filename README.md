@@ -130,6 +130,8 @@ Set `ADMIN_PASSWORD_HASH` using:
 npm run admin:hash -- "replace-with-a-strong-password"
 ```
 
+The generated hash uses `100000` PBKDF2 iterations, which is compatible with Cloudflare Workers. If an older hash starts with `pbkdf2_sha256:310000:`, regenerate it and update the Cloudflare secret.
+
 Set `SESSION_SECRET` to a long random value in production.
 
 ## Production Build
