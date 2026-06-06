@@ -1,0 +1,15 @@
+import "flag-icons/css/flag-icons.min.css";
+import "./globals.css";
+
+export const metadata = {
+  title: "من قارئ إلى كاتب",
+  description: "A multilingual story submission website for the book project."
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" dir="ltr" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
+    </html>
+  );
+}
