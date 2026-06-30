@@ -1,4 +1,5 @@
 import { getCopy, getLanguage } from "@/lib/i18n";
+import { getTermsContent } from "@/lib/terms";
 import { countryNameForCode, isValidCountryCode } from "@/lib/countries";
 
 export const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
@@ -33,6 +34,7 @@ export function normalizeSubmissionFields(formData) {
   const selectedLanguage = getLanguage(cleanInput(formData.get("selectedLanguage"), 8)).code;
   const copy = getCopy(selectedLanguage);
   const storyText = cleanLongText(formData.get("storyText"));
+  const acceptedTermsRaw = String(formData.get("acceptedTerms") || "").toLowerCase();
   const values = {
     selectedLanguage,
     fullName: cleanInput(formData.get("fullName"), 160),
@@ -41,9 +43,12 @@ export function normalizeSubmissionFields(formData) {
     country: cleanInput(formData.get("country"), 120),
     countryCode: cleanInput(formData.get("countryCode"), 2).toUpperCase(),
     storyText,
+    acceptedTerms: acceptedTermsRaw === "true" || acceptedTermsRaw === "on" || acceptedTermsRaw === "1",
     honeypot: cleanInput(formData.get("website"), 120)
   };
   const errors = {};
+
+  if (!values.acceptedTerms) errors.terms = getTermsContent(selectedLanguage).termsRequired;
 
   if (!values.fullName) errors.fullName = copy.required;
   if (!values.phoneNumber) errors.phone = copy.required;

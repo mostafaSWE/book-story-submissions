@@ -2,7 +2,7 @@ import "flag-icons/css/flag-icons.min.css";
 import "./globals.css";
 
 export const metadata = {
-  title: "من قارئ إلى كاتب",
+  title: "كتاب من قارئ إلى كاتب",
   description: "A multilingual story submission website for the book project.",
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],

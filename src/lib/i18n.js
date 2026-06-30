@@ -13,7 +13,7 @@ export const languages = [
 ];
 
 const shared = {
-  bookTitle: "من قارئ إلى كاتب",
+  bookTitle: "كتاب من قارئ إلى كاتب",
   author: "عبد الله الهاشمي"
 };
 
@@ -546,7 +546,7 @@ languages.splice(
 
 const publicOverrides = {
   ar: {
-    bookTitle: "من قارئ إلى كاتب",
+    bookTitle: "كتاب من قارئ إلى كاتب",
     author: "عبد الله الهاشمي",
     projectLabel: "مشروع قصص عالمي",
     languageWelcome: "اختر لغتك وابدأ الرحلة",
@@ -571,7 +571,7 @@ const publicOverrides = {
     storyRequired: "اكتب قصتك أو ارفع صورة واحدة على الأقل من قصتك المكتوبة."
   },
   en: {
-    bookTitle: "From Reader to Writer",
+    bookTitle: "Book: From Reader to Writer",
     author: "Abdullah Al Hashemi",
     projectLabel: "Global Story Project",
     languageWelcome: "Choose your language and begin",
@@ -595,7 +595,7 @@ const publicOverrides = {
     storyRequired: "Write your story or upload at least one photo of your written story."
   },
   fr: {
-    bookTitle: "Du lecteur à l’auteur",
+    bookTitle: "Livre : Du lecteur à l’auteur",
     author: "Abdullah Al Hashemi",
     languageWelcome: "Choisissez votre langue et commencez",
     languageSubtitle: "Entrez dans l’univers du livre, puis partagez votre histoire à votre manière.",
@@ -618,7 +618,7 @@ const publicOverrides = {
     storyRequired: "Écrivez votre histoire ou ajoutez au moins une photo de votre histoire écrite."
   },
   es: {
-    bookTitle: "De lector a escritor",
+    bookTitle: "Libro: De lector a escritor",
     author: "Abdullah Al Hashemi",
     languageWelcome: "Elige tu idioma y comienza",
     languageSubtitle: "Entra en el mundo del libro y comparte tu historia de la forma que prefieras.",
@@ -641,7 +641,7 @@ const publicOverrides = {
     storyRequired: "Escribe tu historia o sube al menos una foto de tu historia escrita."
   },
   pt: {
-    bookTitle: "De leitor a escritor",
+    bookTitle: "Livro: De leitor a escritor",
     author: "Abdullah Al Hashemi",
     languageWelcome: "Escolha seu idioma e comece",
     languageSubtitle: "Entre no mundo do livro e compartilhe sua história da forma que preferir.",
@@ -664,7 +664,7 @@ const publicOverrides = {
     storyRequired: "Escreva sua história ou envie pelo menos uma foto da história escrita."
   },
   de: {
-    bookTitle: "Vom Leser zum Autor",
+    bookTitle: "Buch: Vom Leser zum Autor",
     author: "Abdullah Al Hashemi",
     languageWelcome: "Sprache wählen und beginnen",
     languageSubtitle: "Betreten Sie die Welt des Buches und teilen Sie Ihre Geschichte auf Ihre Weise.",
@@ -687,7 +687,7 @@ const publicOverrides = {
     storyRequired: "Schreiben Sie Ihre Geschichte oder laden Sie mindestens ein Foto Ihrer geschriebenen Geschichte hoch."
   },
   it: {
-    bookTitle: "Da lettore a scrittore",
+    bookTitle: "Libro: Da lettore a scrittore",
     author: "Abdullah Al Hashemi",
     languageWelcome: "Scegli la lingua e inizia",
     languageSubtitle: "Entra nel mondo del libro e condividi la tua storia nel modo che preferisci.",
@@ -710,7 +710,7 @@ const publicOverrides = {
     storyRequired: "Scrivi la tua storia o carica almeno una foto della storia scritta."
   },
   ru: {
-    bookTitle: "От читателя к писателю",
+    bookTitle: "Книга: От читателя к писателю",
     author: "Абдулла Аль-Хашими",
     languageWelcome: "Выберите язык и начните",
     languageSubtitle: "Войдите в мир книги и поделитесь историей удобным способом.",
@@ -733,7 +733,7 @@ const publicOverrides = {
     storyRequired: "Напишите историю или загрузите хотя бы одно фото написанной истории."
   },
   zh: {
-    bookTitle: "从读者到作者",
+    bookTitle: "书：从读者到作者",
     author: "Abdullah Al Hashemi",
     languageWelcome: "选择语言，开始旅程",
     languageSubtitle: "进入这本书的世界，用适合你的方式分享故事。",
@@ -755,7 +755,7 @@ const publicOverrides = {
     storyRequired: "请写下故事或至少上传一张已写故事的照片。"
   },
   hi: {
-    bookTitle: "पाठक से लेखक तक",
+    bookTitle: "पुस्तक: पाठक से लेखक तक",
     author: "अब्दुल्लाह अल हाशिमी",
     languageWelcome: "भाषा चुनें और शुरू करें",
     languageSubtitle: "किताब की दुनिया में प्रवेश करें और अपनी कहानी अपने तरीके से साझा करें।",
@@ -778,7 +778,7 @@ const publicOverrides = {
     storyRequired: "अपनी कहानी लिखें या लिखी कहानी की कम से कम एक तस्वीर अपलोड करें।"
   },
   ja: {
-    bookTitle: "読者から作家へ",
+    bookTitle: "本：読者から作家へ",
     author: "アブドゥッラー・アル・ハシミ",
     languageWelcome: "言語を選んで始める",
     languageSubtitle: "本の世界に入り、あなたに合った方法で物語を共有してください。",

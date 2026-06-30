@@ -24,7 +24,7 @@ export default async function AdminLoginPage({ searchParams }) {
           <BrandMark />
           <span>
             <small>{admin.protectedDashboard}</small>
-            <strong>من قارئ إلى كاتب</strong>
+            <strong>كتاب من قارئ إلى كاتب</strong>
           </span>
         </div>
 

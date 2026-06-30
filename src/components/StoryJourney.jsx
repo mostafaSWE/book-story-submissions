@@ -5,11 +5,13 @@ import {
   ArrowLeft,
   ArrowRight,
   Camera,
+  Check,
   CheckCircle2,
   Globe2,
   ImageUp,
   Loader2,
   PenLine,
+  ScrollText,
   Sparkles,
   Upload,
   X
@@ -18,6 +20,7 @@ import BrandMark from "@/components/BrandMark";
 import CountrySelect from "@/components/CountrySelect";
 import LanguageSelect from "@/components/LanguageSelect";
 import { getLanguage, languages, translations } from "@/lib/i18n";
+import { getTermsContent } from "@/lib/terms";
 import { MAX_IMAGE_SIZE, MAX_STORY_TEXT_LENGTH } from "@/lib/validation";
 
 const journeySteps = ["intro", "info", "story", "thanks"];
@@ -31,6 +34,15 @@ function detectBrowserLanguage() {
 function FieldError({ children }) {
   if (!children) return null;
   return <p className="field-error">{children}</p>;
+}
+
+function BookCover({ title }) {
+  return (
+    <figure className="book-cover-showcase">
+      <span className="book-cover-glow" aria-hidden="true" />
+      <img src="/images/COVER.webp" alt={title} decoding="async" />
+    </figure>
+  );
 }
 
 export default function StoryJourney() {
@@ -47,6 +59,8 @@ export default function StoryJourney() {
   });
   const [receipt, setReceipt] = useState(null);
   const [storyImages, setStoryImages] = useState([]);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
   const receiptRef = useRef(null);
   const storyImagesRef = useRef([]);
   const storyFileInputRef = useRef(null);
@@ -57,6 +71,7 @@ export default function StoryJourney() {
 
   const languageConfig = getLanguage(language);
   const copy = translations[languageConfig.code] || translations.en;
+  const terms = getTermsContent(languageConfig.code);
   const dir = languageConfig.dir;
   const activeStepIndex = Math.max(0, journeySteps.indexOf(step));
   const storyCharacterCount = values.storyText.length;
@@ -88,6 +103,20 @@ export default function StoryJourney() {
       storyImagesRef.current.forEach((image) => URL.revokeObjectURL(image.preview));
     };
   }, []);
+
+  useEffect(() => {
+    if (!showTerms) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    function handleKeyDown(event) {
+      if (event.key === "Escape") setShowTerms(false);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showTerms]);
 
   const progressLabels = useMemo(
     () => [copy.stepIntro, copy.stepInfo, copy.stepStory, copy.stepDone],
@@ -189,6 +218,9 @@ export default function StoryJourney() {
     if (values.storyText.length > MAX_STORY_TEXT_LENGTH) {
       nextErrors.storyText = storyTooLongMessage;
     }
+    if (!acceptedTerms) {
+      nextErrors.terms = terms.termsRequired;
+    }
     return nextErrors;
   }
 
@@ -221,6 +253,7 @@ export default function StoryJourney() {
     formData.append("country", values.country);
     formData.append("countryCode", values.countryCode);
     formData.append("storyText", values.storyText);
+    formData.append("acceptedTerms", acceptedTerms ? "true" : "false");
     formData.append("website", "");
     formData.append("receiptImage", receipt.file);
     storyImages.forEach((image) => formData.append("storyImages", image.file));
@@ -335,48 +368,55 @@ export default function StoryJourney() {
               </div>
             </div>
 
-            <div className="language-panel">
-              <div>
-                <strong>{copy.changeLanguage}</strong>
-                <p>{copy.tagline}</p>
+            <div className="landing-panel-stack">
+              <BookCover title={copy.bookTitle} />
+
+              <div className="language-panel">
+                <div>
+                  <strong>{copy.changeLanguage}</strong>
+                  <p>{copy.tagline}</p>
+                </div>
+                <LanguageSelect
+                  value={language}
+                  onChange={(code) => {
+                    setLanguage(code);
+                    setHasSelectedLanguage(true);
+                  }}
+                  dir={dir}
+                  labels={{
+                    placeholder: copy.languageSelectPlaceholder,
+                    searchPlaceholder: copy.languageSearchPlaceholder,
+                    noResults: copy.languageNoResults
+                  }}
+                />
+                {hasSelectedLanguage && (
+                  <button className="primary-button language-continue" type="button" onClick={() => setStep("intro")}>
+                    {copy.continueWith} {languageConfig.name}
+                    {dir === "rtl" ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
+                  </button>
+                )}
               </div>
-              <LanguageSelect
-                value={language}
-                onChange={(code) => {
-                  setLanguage(code);
-                  setHasSelectedLanguage(true);
-                }}
-                dir={dir}
-                labels={{
-                  placeholder: copy.languageSelectPlaceholder,
-                  searchPlaceholder: copy.languageSearchPlaceholder,
-                  noResults: copy.languageNoResults
-                }}
-              />
-              {hasSelectedLanguage && (
-                <button className="primary-button language-continue" type="button" onClick={() => setStep("intro")}>
-                  {copy.continueWith} {languageConfig.name}
-                  {dir === "rtl" ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
-                </button>
-              )}
             </div>
           </div>
         )}
 
         {step === "intro" && (
           <div className="screen intro-screen">
-            <span className="screen-kicker">
-              <Sparkles size={18} />
-              {copy.tagline}
-            </span>
-            <h1>{copy.bookTitle}</h1>
-            <p>{copy.introCopy}</p>
-            <div className="author-line">{copy.author}</div>
-            <button className="primary-button" type="button" onClick={goToInfo}>
-              <PenLine size={18} />
-              {copy.start}
-              {dir === "rtl" ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
-            </button>
+            <div className="intro-copy">
+              <span className="screen-kicker">
+                <Sparkles size={18} />
+                {copy.tagline}
+              </span>
+              <h1>{copy.bookTitle}</h1>
+              <p>{copy.introCopy}</p>
+              <button className="primary-button" type="button" onClick={goToInfo}>
+                <PenLine size={18} />
+                {copy.start}
+                {dir === "rtl" ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
+              </button>
+            </div>
+
+            <BookCover title={copy.bookTitle} />
           </div>
         )}
 
@@ -583,6 +623,44 @@ export default function StoryJourney() {
               </section>
             </div>
 
+            <div className="terms-consent">
+              <label className={`terms-check ${errors.terms ? "has-error" : ""}`}>
+                <input
+                  type="checkbox"
+                  checked={acceptedTerms}
+                  onChange={(event) => {
+                    setAcceptedTerms(event.target.checked);
+                    setErrors((current) => ({ ...current, terms: "" }));
+                    setServerMessage("");
+                  }}
+                />
+                <span className="terms-check-box" aria-hidden="true">
+                  <Check size={15} strokeWidth={3} />
+                </span>
+                <span className="terms-check-label">
+                  {terms.acceptTerms.split("{terms}").map((part, index, parts) => (
+                    <span key={index}>
+                      {part}
+                      {index < parts.length - 1 && (
+                        <button
+                          type="button"
+                          className="terms-inline-link"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            setShowTerms(true);
+                          }}
+                        >
+                          {terms.termsLinkText}
+                        </button>
+                      )}
+                    </span>
+                  ))}
+                </span>
+              </label>
+              <FieldError>{errors.terms}</FieldError>
+            </div>
+
             {serverMessage && <p className="server-message">{serverMessage}</p>}
 
             <div className="button-row">
@@ -608,6 +686,55 @@ export default function StoryJourney() {
           </div>
         )}
       </div>
+
+      {showTerms && (
+        <div className="terms-modal" role="dialog" aria-modal="true" aria-label={terms.title} dir={dir}>
+          <button
+            type="button"
+            className="terms-modal-backdrop"
+            aria-label={copy.back}
+            onClick={() => setShowTerms(false)}
+          />
+          <div className="terms-modal-panel">
+            <header className="terms-modal-head">
+              <div className="terms-modal-title">
+                <ScrollText size={20} />
+                <h2>{terms.title}</h2>
+              </div>
+              <button
+                type="button"
+                className="terms-modal-close"
+                aria-label={copy.back}
+                onClick={() => setShowTerms(false)}
+              >
+                <X size={20} />
+              </button>
+            </header>
+            <div className="terms-modal-body">
+              <ol className="terms-list">
+                {terms.clauses.map((clause, index) => (
+                  <li key={index}>{clause}</li>
+                ))}
+              </ol>
+            </div>
+            <footer className="terms-modal-foot">
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => {
+                  setAcceptedTerms(true);
+                  setErrors((current) => ({ ...current, terms: "" }));
+                  setServerMessage("");
+                  setShowTerms(false);
+                }}
+              >
+                <Check size={18} strokeWidth={3} />
+                {terms.agree}
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

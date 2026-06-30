@@ -84,23 +84,39 @@ export async function findDuplicateSubmission({ phoneNumber, email }) {
   return data;
 }
 
+function isMissingConsentColumnError(error) {
+  // Postgres 42703 = undefined_column. Lets submissions keep working if the
+  // accepted_terms migration has not been applied to the database yet.
+  return error?.code === "42703" && /accepted_terms/i.test(error.message || "");
+}
+
 export async function createSubmission(values) {
   const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("submissions")
-    .insert({
-      selected_language: values.selectedLanguage,
-      full_name: values.fullName,
-      phone_number: values.phoneNumber,
-      email: values.email,
-      country: values.country,
-      country_code: values.countryCode,
-      receipt_image: values.receiptImage,
-      story_text: values.storyText || null,
-      story_images: values.storyImages || []
-    })
-    .select("id")
-    .single();
+  const baseRow = {
+    selected_language: values.selectedLanguage,
+    full_name: values.fullName,
+    phone_number: values.phoneNumber,
+    email: values.email,
+    country: values.country,
+    country_code: values.countryCode,
+    receipt_image: values.receiptImage,
+    story_text: values.storyText || null,
+    story_images: values.storyImages || []
+  };
+  const consentRow = {
+    ...baseRow,
+    accepted_terms: values.acceptedTerms === true,
+    accepted_terms_at: values.acceptedTerms ? new Date().toISOString() : null
+  };
+
+  let { data, error } = await supabase.from("submissions").insert(consentRow).select("id").single();
+
+  if (isMissingConsentColumnError(error)) {
+    console.warn(
+      "submissions.accepted_terms column missing — apply migration 20260630120000_add_terms_consent.sql to persist consent."
+    );
+    ({ data, error } = await supabase.from("submissions").insert(baseRow).select("id").single());
+  }
 
   if (error) throw error;
   return data;
