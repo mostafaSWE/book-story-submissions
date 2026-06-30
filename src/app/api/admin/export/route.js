@@ -22,6 +22,8 @@ export async function GET(request) {
       "receipt_image",
       "story_text",
       "story_images",
+      "accepted_terms",
+      "accepted_terms_at",
       "created_at",
       "updated_at"
     ]
@@ -42,6 +44,8 @@ export async function GET(request) {
       receipt?.originalName || "",
       submission.storyText || "",
       storyImages.map((image) => image.originalName).join("; "),
+      submission.acceptedTerms ? "true" : "false",
+      submission.acceptedTermsAt ? submission.acceptedTermsAt.toISOString() : "",
       submission.createdAt.toISOString(),
       submission.updatedAt.toISOString()
     ]);

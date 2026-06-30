@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, FileImage, Mail, Phone } from "lucide-react";
+import { ArrowLeft, Check, FileImage, Mail, Phone } from "lucide-react";
 import { notFound } from "next/navigation";
 import BrandMark from "@/components/BrandMark";
 import { requireAdmin } from "@/lib/auth";
@@ -96,6 +96,22 @@ export default async function SubmissionDetailPage({ params, searchParams }) {
             <div>
               <dt>{admin.submitted}</dt>
               <dd>{formatDate(submission.createdAt, adminLanguage.code)}</dd>
+            </div>
+            <div>
+              <dt>{admin.termsAccepted}</dt>
+              <dd>
+                {submission.acceptedTerms ? (
+                  <>
+                    <Check size={15} />
+                    {admin.accepted}
+                    {submission.acceptedTermsAt
+                      ? ` — ${formatDate(submission.acceptedTermsAt, adminLanguage.code)}`
+                      : ""}
+                  </>
+                ) : (
+                  admin.notRecorded
+                )}
+              </dd>
             </div>
           </dl>
         </div>

@@ -12,6 +12,8 @@ const submissionColumns = `
   receipt_image,
   story_text,
   story_images,
+  accepted_terms,
+  accepted_terms_at,
   created_at,
   updated_at
 `;
@@ -34,6 +36,8 @@ export function mapSubmission(row) {
     receiptImage: row.receipt_image,
     storyText: row.story_text || "",
     storyImages: row.story_images || [],
+    acceptedTerms: row.accepted_terms === true,
+    acceptedTermsAt: toDate(row.accepted_terms_at),
     createdAt: toDate(row.created_at),
     updatedAt: toDate(row.updated_at)
   };
