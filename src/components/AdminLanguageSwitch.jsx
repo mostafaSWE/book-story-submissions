@@ -1,15 +1,18 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function AdminLanguageSwitch({ value, label }) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   function changeLanguage(event) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("adminLang", event.target.value === "ar" ? "ar" : "en");
-    router.push(`/admin?${params.toString()}`);
+    params.delete("saved");
+    // Stay on the current admin page (overview, a book's list, or a detail page).
+    router.push(`${pathname || "/admin"}?${params.toString()}`);
   }
 
   return (

@@ -1,196 +1,121 @@
-import Link from "next/link";
-import { Download, Eye, LogOut, Search, ShieldCheck } from "lucide-react";
-import AdminLanguageSwitch from "@/components/AdminLanguageSwitch";
-import BrandMark from "@/components/BrandMark";
+import { redirect } from "next/navigation";
+import { Download, List } from "lucide-react";
+import { AdminTopbar, BookMark } from "@/admin/AdminChrome";
+import { getBooksCopy } from "@/admin/copy";
+import { BOOKS } from "@/books/registry";
 import { requireAdmin } from "@/lib/auth";
-import { getAdminCopy, getLanguage, languages } from "@/lib/i18n";
-import { searchParamsToQueryString } from "@/lib/admin-queries";
-import { countSubmissions, listSubmissions } from "@/lib/submissions";
+import { getAdminCopy, getLanguage } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
-function normalizeParams(searchParams = {}) {
-  return {
-    q: String(searchParams.q || ""),
-    country: String(searchParams.country || ""),
-    language: String(searchParams.language || ""),
-    adminLang: String(searchParams.adminLang || "en"),
-    dateFrom: String(searchParams.dateFrom || ""),
-    dateTo: String(searchParams.dateTo || "")
-  };
+const LEGACY_FILTERS = ["q", "country", "language", "dateFrom", "dateTo"];
+
+function formatDate(date, locale) {
+  return new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" }).format(date);
 }
 
-function formatDate(date, locale = "en") {
-  return new Intl.DateTimeFormat(locale, {
-    dateStyle: "medium",
-    timeStyle: "short"
-  }).format(date);
+function excerpt(text) {
+  const t = String(text || "").replace(/\s+/g, " ").trim();
+  return t.length > 110 ? `${t.slice(0, 110)}…` : t;
 }
 
-function languageName(code) {
-  return languages.find((language) => language.code === code)?.name || code;
-}
-
-function normalizeAdminLanguage(code) {
-  return code === "ar" ? "ar" : "en";
-}
-
-function storyExcerpt(value) {
-  const normalized = String(value || "").replace(/\s+/g, " ").trim();
-  if (!normalized) return "";
-  return normalized.length > 72 ? `${normalized.slice(0, 72)}...` : normalized;
-}
-
-export default async function AdminDashboardPage({ searchParams }) {
+/** Overview: one clearly separated section per book. Each section is that book's own summary. */
+export default async function AdminOverview({ searchParams }) {
   await requireAdmin();
+  const params = (await searchParams) || {};
 
-  const params = normalizeParams(await searchParams);
-  const adminCode = normalizeAdminLanguage(params.adminLang);
-  const queryString = searchParamsToQueryString({ ...params, adminLang: adminCode });
-  const adminLanguage = getLanguage(adminCode);
-  const admin = getAdminCopy(adminLanguage.code);
+  // Bookmarks of the old single-book dashboard with filters → that book's list, filters kept.
+  if (LEGACY_FILTERS.some((k) => params[k])) {
+    const query = new URLSearchParams(Object.entries(params).filter(([, v]) => typeof v === "string")).toString();
+    redirect(`/admin/reader-to-writer?${query}`);
+  }
 
-  const [submissions, totalCount, filteredCount] = await Promise.all([
-    listSubmissions(params, 200),
-    countSubmissions(),
-    countSubmissions(params)
-  ]);
+  const adminCode = params.adminLang === "ar" ? "ar" : "en";
+  const lang = getLanguage(adminCode);
+  const admin = getAdminCopy(adminCode);
+  const c = getBooksCopy(adminCode);
+
+  const sections = await Promise.all(
+    BOOKS.map(async (module) => {
+      try {
+        return { module, data: await module.summary({ latest: 5 }) };
+      } catch (error) {
+        console.error(`admin overview: ${module.book.slug} summary failed`, error?.code || "", error?.message || error);
+        return { module, data: null };
+      }
+    })
+  );
 
   return (
-    <main className="admin-shell" dir={adminLanguage.dir}>
-      <header className="admin-topbar">
-        <div className="brand-lockup admin-brand">
-          <BrandMark />
-          <span>
-            <small>{admin.protectedDashboard}</small>
-            <strong>{admin.submissions}</strong>
-          </span>
+    <main className="admin-shell" dir={lang.dir}>
+      <AdminTopbar admin={admin} adminCode={adminCode} heading={c.books} />
+      <div className="ab-wrap">
+        <div className="ab-heading">
+          <h1>{c.books}</h1>
+          <p>{c.booksIntro}</p>
         </div>
+        <div className="ab-books">
+          {sections.map(({ module: { book }, data }) => (
+            <section key={book.slug} className="ab-card ab-book" data-accent={book.accent} data-book={book.slug} aria-labelledby={`book-${book.slug}`}>
+              <div className="ab-book-head">
+                <BookMark accent={book.accent} />
+                <div>
+                  <p className="ab-book-label">{c.bookLabel}</p>
+                  <h2 className="ab-book-title" id={`book-${book.slug}`} lang="ar">{book.title}</h2>
+                  <p className="ab-book-meta">
+                    {c.site}: <bdi>{book.domain}</bdi> · {c.table}: <bdi>{book.table}</bdi>
+                  </p>
+                </div>
+              </div>
 
-        <div className="admin-topbar-actions">
-          <AdminLanguageSwitch value={adminCode} label={admin.adminLanguage} />
-          <form action="/api/admin/logout" method="post">
-            <button className="secondary-button compact-button" type="submit">
-              <LogOut size={16} />
-              {admin.logout}
-            </button>
-          </form>
-        </div>
-      </header>
+              {data ? (
+                <>
+                  <dl className="ab-stats">
+                    <div className="is-primary"><dt>{c.total}</dt><dd data-stat="total">{data.total}</dd></div>
+                    <div><dt>{c.lastWeek}</dt><dd data-stat="lastWeek">{data.lastWeek}</dd></div>
+                  </dl>
+                  {data.byStatus && (
+                    <dl className="ab-stats ab-stats-status" aria-label={c.status}>
+                      {Object.entries(data.byStatus).map(([status, n]) => (
+                        <div key={status}><dt><span className="ab-status" data-status={status}>{c.statusNames[status]}</span></dt><dd data-stat={status}>{n}</dd></div>
+                      ))}
+                    </dl>
+                  )}
 
-      <section className="admin-metrics">
-        <div>
-          <span>{admin.totalSubmissions}</span>
-          <strong>{totalCount}</strong>
-        </div>
-        <div>
-          <span>{admin.filteredResults}</span>
-          <strong>{filteredCount}</strong>
-        </div>
-        <div>
-          <span>{admin.security}</span>
-          <strong>
-            <ShieldCheck size={20} />
-            {admin.protected}
-          </strong>
-        </div>
-      </section>
+                  <div>
+                    <h3 className="ab-section-title">{c.latest}</h3>
+                    {data.latest.length ? (
+                      <ol className="ab-latest">
+                        {data.latest.map((e) => (
+                          <li key={e.id}>
+                            <a href={`${e.href}?adminLang=${adminCode}`}>
+                              <span className="ab-name"><bdi>{e.name}</bdi>{e.status ? <> <span className="ab-status" data-status={e.status}>{c.statusNames[e.status]}</span></> : null}</span>
+                              <span className="ab-when">{formatDate(e.createdAt, lang.code)}</span>
+                              <span className="ab-excerpt" dir="auto">{excerpt(e.excerpt)}</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ol>
+                    ) : (
+                      <p className="ab-empty">{c.noEntries}</p>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <p className="ab-error" role="alert">{c.unavailable}</p>
+              )}
 
-      <section className="admin-panel">
-        <form className="admin-filters" method="get">
-          <label className="admin-filter-search">
-            <span>{admin.search}</span>
-            <div className="admin-input-icon">
-              <Search size={16} />
-              <input name="q" defaultValue={params.q} placeholder={admin.searchPlaceholder} />
-            </div>
-          </label>
-          <label className="admin-filter-country">
-            <span>{admin.country}</span>
-            <input name="country" defaultValue={params.country} />
-          </label>
-          <label className="admin-filter-submission-language">
-            <span>{admin.submissionLanguage}</span>
-            <select name="language" defaultValue={params.language}>
-              <option value="">{admin.allLanguages}</option>
-              {languages.map((language) => (
-                <option key={language.code} value={language.code}>
-                  {language.name} ({language.code.toUpperCase()})
-                </option>
-              ))}
-            </select>
-          </label>
-          <input type="hidden" name="adminLang" value={adminCode} />
-          <label className="admin-filter-from">
-            <span>{admin.from}</span>
-            <input name="dateFrom" type="date" defaultValue={params.dateFrom} />
-          </label>
-          <label className="admin-filter-to">
-            <span>{admin.to}</span>
-            <input name="dateTo" type="date" defaultValue={params.dateTo} />
-          </label>
-          <div className="filter-actions">
-            <button className="primary-button compact-button" type="submit">
-              <Search size={16} />
-              {admin.filter}
-            </button>
-            <Link className="secondary-button compact-button" href="/admin">
-              {admin.clear}
-            </Link>
-            <a className="secondary-button compact-button" href={`/api/admin/export${queryString ? `?${queryString}` : ""}`}>
-              <Download size={16} />
-              {admin.csv}
-            </a>
-          </div>
-        </form>
-      </section>
-
-      <section className="admin-table-wrap">
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>{admin.date}</th>
-              <th>{admin.name}</th>
-              <th>{admin.phone}</th>
-              <th>{admin.email}</th>
-              <th>{admin.country}</th>
-              <th>{admin.countryCode}</th>
-              <th>{admin.language}</th>
-              <th>{admin.story}</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {submissions.map((submission) => (
-              <tr key={submission.id}>
-                <td data-label={admin.date}>{formatDate(submission.createdAt, adminLanguage.code)}</td>
-                <td data-label={admin.name}>{submission.fullName}</td>
-                <td data-label={admin.phone} dir="ltr">{submission.phoneNumber}</td>
-                <td data-label={admin.email} dir="ltr">{submission.email}</td>
-                <td data-label={admin.country}>{submission.country}</td>
-                <td data-label={admin.countryCode}>{submission.countryCode || "-"}</td>
-                <td data-label={admin.language}>{languageName(submission.selectedLanguage)}</td>
-                <td data-label={admin.story}>
-                  <span className="story-excerpt">{storyExcerpt(submission.storyText) || admin.imagesOnly}</span>
-                </td>
-                <td>
-                  <Link className="table-action" href={`/admin/submissions/${submission.id}?adminLang=${adminLanguage.code}`} aria-label={admin.viewSubmission}>
-                    <Eye size={17} />
-                    <span>{admin.viewSubmission}</span>
-                  </Link>
-                </td>
-              </tr>
-            ))}
-            {!submissions.length && (
-              <tr>
-                <td colSpan={9} className="empty-table">
-                  {admin.noSubmissions}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </section>
+              <div className="ab-actions">
+                <a className="primary-button compact-button" href={`${book.listPath}?adminLang=${adminCode}`}><List size={16} />{c.allEntries}</a>
+                <a className="secondary-button compact-button" href={book.exportPath}><Download size={16} />{c.exportCsv}</a>
+                {book.statuses && (
+                  <a className="secondary-button compact-button" href={`${book.exportPath}?status=selected`}><Download size={16} />{c.exportSelected}</a>
+                )}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
     </main>
   );
 }

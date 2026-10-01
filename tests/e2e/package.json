@@ -1,0 +1,7 @@
+{
+  "name": "readertowriter-e2e",
+  "private": true,
+  "description": "End-to-end tests for the repo-root app: the shared admin (both books) and read-only smoke tests of the public site. Separate package so the app's own package.json is untouched.",
+  "scripts": { "test": "playwright test" },
+  "devDependencies": { "@playwright/test": "1.63.0" }
+}
