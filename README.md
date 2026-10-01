@@ -2,6 +2,26 @@
 
 Multilingual story-submission website for a printed book project. Readers select a language, submit contact details, upload a receipt image, write a story or upload written story-page photos, and admins review/export submissions from a protected dashboard.
 
+## Projects in this repo
+
+Two public sites and one shared admin. They share the Supabase project (one table each) and the Cloudflare account, nothing else.
+
+| | «كتاب من قارئ إلى كاتب» | «أنت الكاتب» |
+|---|---|---|
+| Folder | repo root (`src/`) | `sites/anta/` (own `package.json`, lockfile, `wrangler.jsonc`; imports nothing from the root) |
+| Domain | `readertowriter.net` | `anta.readertowriter.net` |
+| Cloudflare Worker | `book-story-submissions` | `anta-alkateb` |
+| Database table | `public.submissions` (+ Storage buckets `receipts`, `story-pages`) | `public.anta_contributions` |
+| Public routes | `/`, `/share`, `/terms`, `/api/submissions` | `/ar`, `/en`, `/<lang>/write`, `/<lang>/privacy` |
+| Admin (shared, on readertowriter.net) | `/admin/reader-to-writer`, `/admin/reader-to-writer/submissions/[id]`, `/api/admin/reader-to-writer/export` | `/admin/anta`, `/admin/anta/entries/[id]`, `/api/admin/anta/export` (`?status=selected`) |
+| Deploys | Workers Builds on push to `main` (repo root, `npm run deploy`) | `cd sites/anta && npm run deploy` (or a Workers Builds project with root directory `sites/anta`) — see `sites/anta/README.md` |
+
+- `/admin` is an overview with one section per book. Each book is a module in `src/books/<slug>/` (table, queries, list/detail views, CSV mapping, status logic), listed in `src/books/registry.js`; a module never imports another book's module. Adding a book = one more module + one line in the registry.
+- Same admin login, credentials and session cookie for both books. Old admin URLs (`/admin?<filters>`, `/admin/submissions/[id]`, `/api/admin/export`) redirect to the «كتاب من قارئ إلى كاتب» paths.
+- CSV exports (both books): UTF-8 BOM, line breaks kept, formula-injection guard; phone numbers are written as `="+971…"` so Excel keeps the `+`.
+- Migrations live in `supabase/migrations/` and are applied by running their SQL (see each file); `20261001000000_create_anta_contributions.sql` only adds objects.
+- Tests: `sites/anta` (`npm test`, `npm run test:e2e`; local Postgres + PostgREST in `sites/anta/tests/db`), and `tests/e2e` for the shared admin (local test DB only) plus read-only smoke tests of the root site.
+
 ## Tech Stack
 
 - Next.js App Router
@@ -15,11 +35,14 @@ Multilingual story-submission website for a printed book project. Readers select
 
 - `/` - language selection and submission flow
 - `/share` - permanent QR-code entry path for the same submission flow
-- `/admin/login` - protected admin login
-- `/admin` - submissions dashboard
-- `/admin/submissions/[id]` - full submission detail page
+- `/admin/login` - protected admin login (shared by both books)
+- `/admin` - overview of both books (counts, latest entries)
+- `/admin/reader-to-writer` - submissions dashboard (old `/admin?<filters>` redirects here)
+- `/admin/reader-to-writer/submissions/[id]` - full submission detail page (old `/admin/submissions/[id]` redirects here)
+- `/admin/anta`, `/admin/anta/entries/[id]` - «أنت الكاتب» entries (list, detail, status, private note)
 - `/api/submissions` - public submission endpoint
-- `/api/admin/export` - authenticated CSV export
+- `/api/admin/reader-to-writer/export` - authenticated CSV export (old `/api/admin/export` redirects here)
+- `/api/admin/anta/export` - authenticated CSV export of «أنت الكاتب» entries (follows the list filters)
 - `/api/admin/files/[...path]` - authenticated signed access to private Supabase Storage files
 
 ## Local Setup
@@ -71,13 +94,9 @@ SESSION_SECRET="replace-with-a-long-random-production-secret"
 
 Create a fresh Supabase project for production. Do not import local test data, local SQLite files, or local upload folders.
 
-Apply the SQL migration:
+For a new, empty project, apply the SQL migrations with `supabase db push`. On the existing production project, run a single new migration's SQL directly in the SQL editor instead, so nothing else gets applied by accident.
 
-```bash
-supabase db push
-```
-
-Or paste and run this migration in the Supabase SQL editor:
+Paste and run this migration in the Supabase SQL editor:
 
 ```text
 supabase/migrations/20260606000000_create_submissions.sql
