@@ -2,7 +2,7 @@
 
 import { startTransition, useActionState, useCallback, useEffect, useRef, useState } from "react";
 import { submitContribution } from "@/app/[lang]/write/actions";
-import { callingCode, DEFAULT_REGION, parsePhone } from "@/lib/phone";
+import { callingCode, countryGroups, DEFAULT_REGION, isRegion, parsePhone } from "@/lib/phone";
 import { graphemeCount } from "@/lib/text";
 import { FIELD_ORDER, LIMITS, normalizeInput, validate } from "@/lib/validation";
 import { CheckMark, ChevronIcon, Nib } from "./Icons";
@@ -26,7 +26,8 @@ const store = {
   }
 };
 
-export default function ContributionForm({ lang, m, groups, aside }) {
+export default function ContributionForm({ lang, m, groups: initialGroups, aside }) {
+  const [groups, setGroups] = useState(initialGroups);
   const [state, formAction, pending] = useActionState(submitContribution, null);
   const [jsReady, setJsReady] = useState(false);
   const [errors, setErrors] = useState({});
@@ -50,7 +51,7 @@ export default function ContributionForm({ lang, m, groups, aside }) {
   const regionName = (code) => {
     try { return new Intl.DisplayNames([lang, "en"], { type: "region" }).of(code) || code; } catch { return code; }
   };
-  const inList = (code) => groups.some((g) => g.countries.some((c) => c.code === code));
+  const inList = (code) => isRegion(code);
 
   const t = (key, vars) => {
     const value = key.split(".").reduce((node, part) => (node == null ? node : node[part]), m);
@@ -101,6 +102,22 @@ export default function ContributionForm({ lang, m, groups, aside }) {
       store.set(DRAFT_KEY, { ...read(), regionTouched: regionTouched.current, attempted, ...extra });
     }, 250);
   }, [attempted, read]);
+
+  // The rest of the world joins the country list right after first paint (Gulf and Arab states ship first).
+  useEffect(() => {
+    if (groups.some((g) => g.key === "world")) return undefined;
+    const add = () => setGroups(countryGroups(lang));
+    const id = "requestIdleCallback" in window ? requestIdleCallback(add, { timeout: 1500 }) : setTimeout(add, 300);
+    return () => ("cancelIdleCallback" in window ? cancelIdleCallback(id) : clearTimeout(id));
+  }, [groups, lang]);
+
+  // Warm the full writing face once the page has painted, so it's ready before the first keystroke.
+  useEffect(() => {
+    if (lang !== "ar" || !document.fonts?.load) return undefined;
+    const warm = () => document.fonts.load('400 20px "Amiri"', "اكتب").catch(() => {});
+    const id = "requestIdleCallback" in window ? requestIdleCallback(warm, { timeout: 2500 }) : setTimeout(warm, 1200);
+    return () => ("cancelIdleCallback" in window ? cancelIdleCallback(id) : clearTimeout(id));
+  }, [lang]);
 
   // Restore a draft (e.g. after switching language) or a finished submission; pick the phone country.
   useEffect(() => {
@@ -294,7 +311,7 @@ export default function ContributionForm({ lang, m, groups, aside }) {
                 <label htmlFor="f-title">
                   <span>{m.titleLabel}</span> <span className="optional">(<span>{m.optional}</span>)</span>
                 </label>
-                <input id="f-title" name="title" type="text" autoComplete="off" aria-invalid={invalid("title")} aria-describedby="f-title-err" {...inputHandlers("title")} />
+                <input id="f-title" name="title" type="text" autoComplete="off" placeholder=" " aria-invalid={invalid("title")} aria-describedby="f-title-err" {...inputHandlers("title")} />
                 <p className="field-error" id="f-title-err" hidden={!shownErrors.title}>{fieldError("title")}</p>
               </div>
 
@@ -312,7 +329,7 @@ export default function ContributionForm({ lang, m, groups, aside }) {
 
               <div className="field field-line" data-field="name">
                 <label htmlFor="f-name">{m.nameLabel}</label>
-                <input id="f-name" name="name" type="text" autoComplete="name" required aria-required="true" aria-invalid={invalid("name")} aria-describedby="f-name-hint f-name-err" {...inputHandlers("name")} />
+                <input id="f-name" name="name" type="text" autoComplete="name" placeholder=" " required aria-required="true" aria-invalid={invalid("name")} aria-describedby="f-name-hint f-name-err" {...inputHandlers("name")} />
                 <p className="field-hint" id="f-name-hint">{m.nameHint}</p>
                 <p className="field-error" id="f-name-err" hidden={!shownErrors.name}>{fieldError("name")}</p>
               </div>

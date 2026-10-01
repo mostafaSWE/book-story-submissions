@@ -1,4 +1,5 @@
 import { Colophon, SiteHeader } from "@/components/SiteChrome";
+import { preloadFonts } from "@/lib/fonts";
 import { getMessages } from "@/lib/i18n";
 
 // Rendered per request so the contact address can be set in the Worker's settings without a rebuild.
@@ -12,6 +13,7 @@ export async function generateMetadata({ params }) {
 
 export default async function Privacy({ params }) {
   const { lang } = await params;
+  preloadFonts(lang, "privacy");
   const m = getMessages(lang);
   const p = m.privacyPage;
   const email = (process.env.PRIVACY_CONTACT_EMAIL || "").trim();

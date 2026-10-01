@@ -6,6 +6,10 @@
 /* ---------- Fonts (self-hosted, subset, SIL OFL 1.1) ---------- */
 @font-face { font-family: "Amiri"; src: url("/fonts/amiri-400.woff2") format("woff2"); font-weight: 400; font-display: swap; unicode-range: U+0600-06FF, U+FD3E-FD3F, U+200C-200F, U+2066-2069, U+0020-0040, U+00A0, U+00AB, U+00BB, U+00B7, U+2013-2014, U+2018-201D, U+2026; }
 @font-face { font-family: "Amiri"; src: url("/fonts/amiri-700.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0600-06FF, U+FD3E-FD3F, U+200C-200F, U+2066-2069, U+0020-0040, U+00A0, U+00AB, U+00BB, U+00B7, U+2013-2014, U+2018-201D, U+2026; }
+/* Bold Amiri reduced to the glyphs of the fixed Arabic headings (scripts/subset-title-font.py): the headings
+   paint without waiting for the full face. User-typed text never uses it. */
+@font-face { font-family: "Amiri Title"; src: url("/fonts/amiri-700-title.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Amiri UI"; src: url("/fonts/amiri-400-ui.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Plex Arabic"; src: url("/fonts/plexar-300.woff2") format("woff2"); font-weight: 300; font-display: swap; }
 @font-face { font-family: "Plex Arabic"; src: url("/fonts/plexar-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Plex Arabic"; src: url("/fonts/plexar-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
@@ -127,7 +131,7 @@ h1[tabindex="-1"]:focus { outline: none; }
 }
 .back-link:hover { color: var(--ink); }
 .wordmark {
-  margin: 0; justify-self: center; white-space: nowrap; font-family: var(--display-ar); font-weight: var(--display-ar-weight);
+  margin: 0; justify-self: center; white-space: nowrap; font-family: "Amiri Title", var(--display-ar); font-weight: var(--display-ar-weight);
   font-size: 1.25rem; line-height: 1;
 }
 html[lang="en"] .wordmark { font-family: var(--display-en); font-weight: 500; font-size: 1.125rem; }
@@ -155,7 +159,7 @@ main { flex: 1; outline: none; }
 html[lang="en"] .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; }
 
 .display {
-  margin: 0; text-wrap: balance; font-family: var(--display-ar); font-weight: var(--display-ar-weight);
+  margin: 0; text-wrap: balance; font-family: "Amiri Title", var(--display-ar); font-weight: var(--display-ar-weight);
   font-size: clamp(3.4rem, 2.2rem + 6vw, 7rem); line-height: 1.25;
 }
 html[lang="en"] .display { font-family: var(--display-en); font-weight: 400; letter-spacing: -.02em; line-height: 1.05; font-size: clamp(2.9rem, 1.9rem + 5vw, 6.25rem); }
@@ -288,11 +292,11 @@ html[lang="en"] .colophon { letter-spacing: .02em; }
   .write-grid { grid-template-columns: minmax(0, 1fr) 300px; gap: 72px; padding-block-start: 24px; }
 }
 .write-title {
-  margin: 0; font-family: var(--display-ar); font-weight: var(--display-ar-weight);
+  margin: 0; font-family: "Amiri Title", var(--display-ar); font-weight: var(--display-ar-weight);
   font-size: clamp(2.25rem, 1.8rem + 2vw, 3.5rem); line-height: 1.35;
 }
 html[lang="en"] .write-title { font-family: var(--display-en); font-weight: 400; line-height: 1.1; letter-spacing: -.01em; }
-.write-intro { margin: 4px 0 24px; color: var(--ink-soft); font-family: var(--quote-ar); font-size: 1.1875rem; line-height: 1.9; }
+.write-intro { margin: 4px 0 24px; color: var(--ink-soft); font-family: "Amiri UI", var(--quote-ar); font-size: 1.1875rem; line-height: 1.9; }
 html[lang="en"] .write-intro { font-family: var(--quote-en); font-style: italic; line-height: 1.5; margin-block-start: 10px; }
 
 .contribution { display: grid; gap: 22px; }
@@ -346,6 +350,10 @@ html[lang="en"] .field-line input { font-family: var(--quote-en); font-size: 1.1
 }
 html[lang="en"] .field-page textarea { font-family: var(--quote-en); font-size: 1.25rem; --lh: 2.1rem; }
 .field-page textarea::placeholder, .field-line input::placeholder { color: var(--ink-mute); opacity: 1; }
+/* Empty, unfocused writing fields use the small face (it has the placeholder's glyphs), so the full face isn't
+   needed for first paint; on focus or with text they use the full face (warmed in the background after load). */
+html[lang="ar"] .field-page textarea:placeholder-shown:not(:focus),
+html[lang="ar"] .field-line input:placeholder-shown:not(:focus) { font-family: "Amiri UI", var(--quote-ar); }
 .field-page textarea:focus { outline: none; box-shadow: 0 0 0 2px var(--ink); }
 
 /* Contact fields — plain boxes, clear affordance */
@@ -425,7 +433,7 @@ html[lang="en"] .aside-promise p { font-family: var(--quote-en); font-style: ita
 }
 .nib-large { width: 30px; height: 30px; margin-block: 8px 12px; }
 .thanks-title {
-  margin: 0; text-wrap: balance; font-family: var(--display-ar); font-weight: var(--display-ar-weight); outline: none;
+  margin: 0; text-wrap: balance; font-family: "Amiri Title", var(--display-ar); font-weight: var(--display-ar-weight); outline: none;
   font-size: clamp(2.1rem, 1.6rem + 2.4vw, 3.4rem); line-height: 1.4;
 }
 html[lang="en"] .thanks-title { font-family: var(--display-en); font-weight: 400; line-height: 1.12; letter-spacing: -.01em; }
@@ -476,11 +484,11 @@ html[lang="en"] .their-text, html[lang="en"] .their-title { font-family: var(--q
 /* ---------- Privacy note (D5) ---------- */
 .privacy-page { max-width: 40rem; margin-inline: auto; padding: 8px var(--gutter) 56px; }
 .privacy-title {
-  margin: 0; font-family: var(--display-ar); font-weight: var(--display-ar-weight);
+  margin: 0; font-family: "Amiri Title", var(--display-ar); font-weight: var(--display-ar-weight);
   font-size: clamp(2rem, 1.6rem + 1.8vw, 3rem); line-height: 1.35;
 }
 html[lang="en"] .privacy-title { font-family: var(--display-en); font-weight: 400; line-height: 1.12; letter-spacing: -.01em; }
-.privacy-lead { margin: 6px 0 26px; color: var(--ink-soft); font-family: var(--quote-ar); font-size: 1.1875rem; line-height: 1.9; }
+.privacy-lead { margin: 6px 0 26px; color: var(--ink-soft); font-family: "Amiri UI", var(--quote-ar); font-size: 1.1875rem; line-height: 1.9; }
 html[lang="en"] .privacy-lead { font-family: var(--quote-en); font-style: italic; line-height: 1.5; margin-block-start: 12px; }
 .privacy-list { margin: 0; display: grid; gap: 18px; }
 .privacy-list > div { padding-block-start: 14px; border-block-start: 1px solid var(--rule); }

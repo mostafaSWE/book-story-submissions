@@ -1,12 +1,14 @@
 import Marquee from "@/components/Marquee";
 import { ForwardIcon, Ornament } from "@/components/Icons";
 import { Colophon, SiteHeader } from "@/components/SiteChrome";
+import { preloadFonts } from "@/lib/fonts";
 import { getMessages, localizedQuotes, quoteMarks } from "@/lib/i18n";
 
 export const dynamic = "force-static";
 
 export default async function Landing({ params }) {
   const { lang } = await params;
+  preloadFonts(lang, "home");
   const m = getMessages(lang);
   const quotes = localizedQuotes(lang).map((q) => ({
     id: q.id,

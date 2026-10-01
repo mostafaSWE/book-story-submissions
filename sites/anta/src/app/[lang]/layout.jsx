@@ -1,17 +1,11 @@
-import { preload } from "react-dom";
+import { notFound } from "next/navigation";
 import "../globals.css";
-import { DEFAULT_LOCALE, LOCALES, SITE_URL, getMessages } from "@/lib/i18n";
+import { DEFAULT_LOCALE, LOCALES, SITE_URL, getMessages, isLocale } from "@/lib/i18n";
 
-export const dynamicParams = false;
+// Prerendered at build; if the prerendered copy is ever missing, render on demand instead of 404.
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
 }
-
-// Faces each language paints first; everything else loads on demand.
-const PRELOAD = {
-  ar: ["amiri-700", "amiri-400", "plexar-400"],
-  en: ["news-400", "news-400i", "plexar-400"]
-};
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -48,10 +42,8 @@ export const viewport = {
 
 export default async function RootLayout({ children, params }) {
   const { lang } = await params;
+  if (!isLocale(lang)) notFound(); // e.g. /fr
   const m = getMessages(lang);
-  for (const face of PRELOAD[lang] || PRELOAD.en) {
-    preload(`/fonts/${face}.woff2`, { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
-  }
   return (
     <html lang={lang} dir={m.meta.dir}>
       <body>

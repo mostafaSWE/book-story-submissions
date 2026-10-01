@@ -1,10 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FEATURED, ROWS } from "@/lib/marquee-rows";
 import { PauseIcon, PlayIcon } from "./Icons";
-
-const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 function Item({ q }) {
   return (
@@ -39,8 +37,9 @@ export default function Marquee({ quotes, labels }) {
     );
   }, []);
 
-  useIsoLayoutEffect(() => {
-    measure();
+  useEffect(() => {
+    // After the first paint, so shaping/measuring the quotes doesn't lengthen hydration.
+    const raf = requestAnimationFrame(() => setTimeout(measure, 0));
     let timer;
     const onResize = () => {
       clearTimeout(timer);
@@ -49,6 +48,7 @@ export default function Marquee({ quotes, labels }) {
     window.addEventListener("resize", onResize);
     document.fonts?.ready?.then(measure);
     return () => {
+      cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
       clearTimeout(timer);
     };

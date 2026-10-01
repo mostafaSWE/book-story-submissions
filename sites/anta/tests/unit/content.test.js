@@ -7,6 +7,7 @@ import ar from "@messages/ar.json";
 import en from "@messages/en.json";
 import { FEATURED, ROWS } from "@/lib/marquee-rows.js";
 import { RULES } from "@/lib/validation.js";
+import TITLE_FONT from "@content/title-font-chars.json";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const keys = (obj, prefix = "") =>
@@ -54,6 +55,20 @@ describe("quotes", () => {
     const used = ROWS.flatMap((r) => r.ids).sort((a, b) => a - b);
     expect(used).toEqual(QUOTES.map((q) => q.id).sort((a, b) => a - b));
     for (const id of FEATURED) expect(QUOTES.some((q) => q.id === id)).toBe(true);
+  });
+});
+
+describe("title font subset", () => {
+  it("covers every character of the Arabic headings (else run scripts/subset-title-font.py)", () => {
+    const get = (o, k) => k.split(".").reduce((n, p) => n[p], o);
+    const needed = new Set(TITLE_FONT.keys.map((k) => get(ar, k)).join(""));
+    const missing = [...needed].filter((c) => !TITLE_FONT.chars.includes(c));
+    expect(missing).toEqual([]);
+  });
+  it("covers every character of the fixed regular-weight strings (else run scripts/subset-title-font.py)", () => {
+    const get = (o, k) => k.split(".").reduce((n, p) => n[p], o);
+    const needed = new Set(TITLE_FONT.uiKeys.map((k) => get(ar, k)).join(""));
+    expect([...needed].filter((c) => !TITLE_FONT.uiChars.includes(c))).toEqual([]);
   });
 });
 

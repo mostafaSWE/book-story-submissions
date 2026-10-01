@@ -1,0 +1,16 @@
+{
+  "keys": [
+    "title",
+    "formTitle",
+    "thanksTitle",
+    "notFoundTitle",
+    "privacyPage.title"
+  ],
+  "chars": " ءأإابةتجحخدرسصظعغفقكلمنوىيٍُِ",
+  "uiKeys": [
+    "formIntro",
+    "bodyPlaceholder",
+    "privacyPage.lead"
+  ],
+  "uiChars": " .،أابتجحخذرصعفقكلمنهويٍّ…"
+}
