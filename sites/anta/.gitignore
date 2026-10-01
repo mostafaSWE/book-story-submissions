@@ -1,0 +1,9 @@
+# In addition to the repo root .gitignore
+.dev.vars
+.dev.vars.*
+.env*
+src/generated/
+test-results/
+playwright-report/
+tests/.artifacts/
+tests/.*.log

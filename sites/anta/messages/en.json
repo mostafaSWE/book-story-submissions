@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "code": "en",
+    "dir": "ltr",
+    "name": "English",
+    "locale": "en-GB",
+    "ogLocale": "en_GB"
+  },
+  "docTitle": "You Are the Writer — a space for what your pen will say",
+  "docDescription": "From Abdullah Al-Hashemi’s “You Are the Writer”: share your wisdom. The finest contributions will be published, under their writers’ names, in the second volume.",
+  "skip": "Skip to content",
+  "langLabel": "Language",
+  "homeLabel": "You Are the Writer — home",
+  "series": "The Encyclopedia of the Human Mind · First Edition",
+  "title": "You Are the Writer",
+  "tagline": "The finest words great minds have spoken… and a space for what your pen will say.",
+  "quotesHeading": "From the pages of the book",
+  "motionPause": "Pause motion",
+  "motionPlay": "Resume motion",
+  "invite": "Every page of this book leaves a space for you. Write your wisdom here — the finest contributions will be published, under their writers’ names, in the second volume.",
+  "cta": "Write your words",
+  "ctaNote": "No account, no sign-up · two minutes is enough",
+  "colophon": "Abdullah Al-Hashemi · Dar Al-Afaq, United Arab Emirates · First edition 2026",
+  "back": "Back",
+  "formTitle": "Your space to create",
+  "formIntro": "Write what you see — not what you have read here.",
+  "titleLabel": "Your suggested title",
+  "optional": "optional",
+  "bodyLabel": "Your words",
+  "bodyPlaceholder": "Write here…",
+  "bodyHint": "A saying, a thought, a few lines.",
+  "counter": "{n} of {max}",
+  "nameLabel": "Written by",
+  "nameHint": "Your name as you’d like it to appear in the book.",
+  "contactLegend": "So we can reach you if your words are chosen",
+  "emailLabel": "Email",
+  "phoneLabel": "Mobile number",
+  "countryLabel": "Country",
+  "countriesGcc": "Gulf states",
+  "countriesArab": "Arab states",
+  "countriesWorld": "Other countries",
+  "phoneSaved": "We’ll reach you at {formatted}",
+  "consent": "I agree that, if chosen, my words may be published under my name in the second volume of “You Are the Writer”.",
+  "privacy": "We use your details only to contact you about your contribution.",
+  "submit": "Send your words",
+  "submitting": "Sending…",
+  "asidePromise": "We will return to meet you once we have chosen the most eloquent of what you wrote — to honour your ink and give your name a lasting place in a second volume.",
+  "asideSource": "From the last page of the book",
+  "coverAlt": "Cover of “You Are the Writer”: a man in Gulf dress writing with a quill beside a laptop",
+  "errors": {
+    "summary": "Please check the following:",
+    "bodyRequired": "Write your words first.",
+    "bodyTooShort": "Write at least {min} characters.",
+    "bodyTooLong": "Your text is longer than {max} characters.",
+    "titleTooLong": "The title is longer than {max} characters.",
+    "nameRequired": "Enter your name as you’d like it to appear.",
+    "nameInvalid": "Your name contains numbers or symbols we can’t accept.",
+    "emailRequired": "Enter your email address.",
+    "emailInvalid": "Check your email address, e.g. name@example.com",
+    "emailArabic": "Your keyboard seems to be set to Arabic — type the email in Latin letters.",
+    "phoneRequired": "Enter your mobile number.",
+    "phoneInvalid": "That number doesn’t match {country}. Check the number or the country.",
+    "consentRequired": "We need your consent to publish your words under your name.",
+    "generic": "We couldn’t send this just now. Please try again in a moment.",
+    "rateLimited": "We’ve received many submissions from this device. Please try again shortly.",
+    "duplicate": "We’ve already received these words from you."
+  },
+  "thanksTitle": "Until we meet again, in the sanctuary of the pen",
+  "thanksBody": "Your words have reached us. We read every contribution with care; if yours is chosen, we’ll contact you before anything is published.",
+  "thanksPreview": "Your words, as we received them",
+  "share": "Invite another reader",
+  "shareText": "“You Are the Writer” leaves a space for you. Write your wisdom here:",
+  "linkCopied": "Link copied",
+  "writeAnother": "Write another",
+  "home": "Home",
+  "privacyLink": "Privacy note",
+  "notFoundTitle": "Page not found",
+  "notFoundBody": "It may have moved, or the address may be slightly different.",
+  "privacyPage": {
+    "docTitle": "Privacy note — You Are the Writer",
+    "title": "Privacy note",
+    "lead": "You trust us with your words and your details. Here is everything you need to know, briefly.",
+    "sections": [
+      {
+        "h": "What we collect",
+        "p": "The text you write and its title if you add one, your name as you’d like it published, your email address, your mobile number, the interface language and the time you sent it. To protect the site from automated spam we also keep a one-way coded fingerprint of your connection address (never the address itself), your approximate country and your browser type."
+      },
+      {
+        "h": "Why we collect it",
+        "p": "To read your contribution, to choose contributions for the second volume of “You Are the Writer”, and to contact you if yours is chosen. We never use your details for marketing, never sell them and never share them for any other purpose."
+      },
+      {
+        "h": "What gets published",
+        "p": "Only the chosen text and your name as you wrote it, based on the consent you gave when sending. Your email address and mobile number are never published."
+      },
+      {
+        "h": "Who sees it, and where it is kept",
+        "p": "Only the book team at the author and the publisher. The data is held by cloud providers (Cloudflare and Supabase) whose servers may be outside your country."
+      },
+      {
+        "h": "How long we keep it",
+        "p": "We keep contributions while work on the second volume continues, then delete the contact details of those that were not chosen."
+      },
+      {
+        "h": "Your rights",
+        "p": "You can ask to see, correct or delete your details, or withdraw your consent before publication, {contact}."
+      },
+      {
+        "h": "Cookies",
+        "p": "We use a single cookie to remember your language. No tracking or advertising tools."
+      }
+    ],
+    "contactWithEmail": "by writing to {email}",
+    "contactWithout": "by contacting the book team",
+    "updated": "Last updated: 1 October 2026"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  // «أنت الكاتب» public site. Its own Worker; nothing is shared with book-story-submissions.
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "anta-alkateb",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-06-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "workers_dev": true,
+  "observability": { "enabled": true },
+  "vars": {
+    "SITE_URL": "https://anta.readertowriter.net"
+  },
+  // Per-IP submission limit (Workers Rate Limiting). namespace_id is any account-unique integer.
+  "ratelimits": [
+    { "name": "SUBMIT_LIMITER", "namespace_id": "4171", "simple": { "limit": 5, "period": 60 } }
+  ]
+  // Secrets (set with `wrangler secret put`, never committed):
+  //   PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, IP_HASH_SECRET
+  // Optional runtime var: PRIVACY_CONTACT_EMAIL (shown on /ar/privacy and /en/privacy).
+  // Custom domain (attach when ready):
+  //   "routes": [{ "pattern": "anta.readertowriter.net", "custom_domain": true }]
+}

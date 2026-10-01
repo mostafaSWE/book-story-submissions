@@ -1,0 +1,37 @@
+{
+  "name": "anta-alkateb",
+  "version": "1.0.0",
+  "private": true,
+  "description": "«أنت الكاتب» — public contribution site (anta.readertowriter.net). Separate app and Worker from the repo root site.",
+  "scripts": {
+    "gen": "node scripts/gen-locales.mjs",
+    "predev": "npm run gen",
+    "dev": "next dev --webpack -p 3100",
+    "prebuild": "npm run gen",
+    "build": "next build --webpack",
+    "start": "next start -p 3100",
+    "build:cloudflare": "npm run gen && opennextjs-cloudflare build",
+    "preview": "npm run gen && opennextjs-cloudflare build && opennextjs-cloudflare preview --port 8788",
+    "deploy": "npm run gen && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "pretest": "npm run gen",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "db:up": "docker compose -f tests/db/docker-compose.yml up -d",
+    "db:down": "docker compose -f tests/db/docker-compose.yml down -v",
+    "db:rest": "node tests/db/rest-proxy.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.107.0",
+    "libphonenumber-js": "1.13.14",
+    "next": "16.2.7",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@opennextjs/cloudflare": "1.19.11",
+    "@playwright/test": "1.63.0",
+    "vitest": "^3.2.4",
+    "wrangler": "4.98.0"
+  }
+}

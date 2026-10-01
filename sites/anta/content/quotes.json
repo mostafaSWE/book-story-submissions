@@ -1,0 +1,571 @@
+[
+  {
+    "id": 1,
+    "page": 13,
+    "chapter": "human",
+    "enSource": "standard",
+    "ar": {
+      "text": "أنا إنسانٌ، ولا شيءَ إنسانيٍّ أعُدُّه غريبًا عنّي",
+      "by": "تيرنس"
+    },
+    "en": {
+      "text": "I am human, and I think nothing human is alien to me.",
+      "by": "Terence"
+    },
+    "note": "Printed as «إنسانيٍّ» (kasratan); grammatical form is «إنسانيٌّ». Attribution shortened from «تيرنس (بوبليوس تيرنتيوس أفير)»."
+  },
+  {
+    "id": 2,
+    "page": 15,
+    "chapter": "human",
+    "enSource": "standard",
+    "ar": {
+      "text": "الحياةُ التي لا تُفحَصُ لا تستحقُّ أن تُعاش",
+      "by": "سقراط"
+    },
+    "en": {
+      "text": "The unexamined life is not worth living.",
+      "by": "Socrates"
+    }
+  },
+  {
+    "id": 3,
+    "page": 15,
+    "chapter": "human",
+    "enSource": "translated",
+    "ar": {
+      "text": "النفس إن لم تشغلها بالحق، شغلتك بالباطل",
+      "by": "الإمام الشافعي"
+    },
+    "en": {
+      "text": "If you do not busy the soul with what is true, it will busy you with what is false.",
+      "by": "Imam al-Shafi‘i"
+    }
+  },
+  {
+    "id": 4,
+    "page": 17,
+    "chapter": "human",
+    "enSource": "original",
+    "ar": {
+      "text": "إن العقل قادر على أن يصنع من الجحيم نعيماً، ويصنع من النعيم جحيماً",
+      "by": "جون ميلتون"
+    },
+    "en": {
+      "text": "The mind is its own place, and in itself can make a Heav’n of Hell, a Hell of Heav’n.",
+      "by": "John Milton"
+    },
+    "note": "The Arabic omits Milton's opening clause “The mind is its own place”."
+  },
+  {
+    "id": 5,
+    "page": 19,
+    "chapter": "human",
+    "enSource": "standard",
+    "ar": {
+      "text": "أنا أفكر، إذاً أنا موجود",
+      "by": "رينيه ديكارت"
+    },
+    "en": {
+      "text": "I think, therefore I am.",
+      "by": "René Descartes"
+    }
+  },
+  {
+    "id": 6,
+    "page": 19,
+    "chapter": "human",
+    "enSource": "standard",
+    "ar": {
+      "text": "التعلُّمُ بلا تفكيرٍ جهدٌ ضائع، والتفكيرُ بلا تعلُّمٍ خطرٌ مُحدِق",
+      "by": "كونفوشيوس"
+    },
+    "en": {
+      "text": "Learning without thought is labour lost; thought without learning is perilous.",
+      "by": "Confucius"
+    }
+  },
+  {
+    "id": 7,
+    "page": 19,
+    "chapter": "human",
+    "enSource": "standard",
+    "ar": {
+      "text": "تجرّأْ على استعمال عقلك! ذلك هو شعارُ التنوير",
+      "by": "إيمانويل كانط"
+    },
+    "en": {
+      "text": "Have courage to use your own understanding! That is the motto of enlightenment.",
+      "by": "Immanuel Kant"
+    }
+  },
+  {
+    "id": 8,
+    "page": 35,
+    "chapter": "human",
+    "enSource": "original",
+    "ar": {
+      "text": "ليس كلُّ ما نواجهُه يمكنُ تغييرُه، لكن لا شيءَ يمكنُ تغييرُه قبلَ أن نواجهَه",
+      "by": "جيمس بالدوين"
+    },
+    "en": {
+      "text": "Not everything that is faced can be changed, but nothing can be changed until it is faced.",
+      "by": "James Baldwin"
+    }
+  },
+  {
+    "id": 9,
+    "page": 49,
+    "chapter": "family",
+    "enSource": "original",
+    "ar": {
+      "text": "البيت هو المكان الذي إذا ذهبت إليه، كان عليهم أن يستقبلوك",
+      "by": "روبرت فروست"
+    },
+    "en": {
+      "text": "Home is the place where, when you have to go there, they have to take you in.",
+      "by": "Robert Frost"
+    }
+  },
+  {
+    "id": 10,
+    "page": 75,
+    "chapter": "society",
+    "enSource": "translated",
+    "ar": {
+      "text": "سَلَامٌ عَلَى الدُّنْيَا إِذَا لَمْ يَكُنْ بِهَا.. صَدِيقٌ صَدُوقٌ صَادِقُ الوَعْدِ مُنْصِفَا",
+      "by": "الإمام الشافعي"
+    },
+    "en": {
+      "text": "Farewell to this world, if there is in it no true friend — faithful to his word, and just.",
+      "by": "Imam al-Shafi‘i"
+    }
+  },
+  {
+    "id": 11,
+    "page": 75,
+    "chapter": "society",
+    "enSource": "standard",
+    "ar": {
+      "text": "الصَّدَاقَةُ هِيَ عَقْلٌ وَاحِدٌ فِي جَسَدَيْنِ",
+      "by": "أَرِسْطُو"
+    },
+    "en": {
+      "text": "A friend is a single soul dwelling in two bodies.",
+      "by": "Aristotle"
+    },
+    "note": "The book says «عقل» (mind); the established English says “soul”."
+  },
+  {
+    "id": 12,
+    "page": 81,
+    "chapter": "society",
+    "enSource": "original",
+    "ar": {
+      "text": "الشعراء هم المشرعون غير المعترف بهم لهذا العالم",
+      "by": "بيرسي بيش شيلي"
+    },
+    "en": {
+      "text": "Poets are the unacknowledged legislators of the world.",
+      "by": "Percy Bysshe Shelley"
+    }
+  },
+  {
+    "id": 13,
+    "page": 85,
+    "chapter": "society",
+    "enSource": "original",
+    "ar": {
+      "text": "إنك تعطي القليل حينما تعطي مما تملك.. لكنك تعطي الكثير حينما تعطي من نفسك",
+      "by": "جبران خليل جبران"
+    },
+    "en": {
+      "text": "You give but little when you give of your possessions. It is when you give of yourself that you truly give.",
+      "by": "Kahlil Gibran"
+    },
+    "note": "Gibran wrote The Prophet (1923) in English; the English is his original."
+  },
+  {
+    "id": 14,
+    "page": 95,
+    "chapter": "society",
+    "enSource": "translated",
+    "ar": {
+      "text": "لا غنى كالعقل، ولا فقر كالجهل",
+      "by": "الإمام علي بن أبي طالب"
+    },
+    "en": {
+      "text": "There is no wealth like the mind, and no poverty like ignorance.",
+      "by": "Ali ibn Abi Talib"
+    }
+  },
+  {
+    "id": 15,
+    "page": 103,
+    "chapter": "life",
+    "enSource": "standard",
+    "ar": {
+      "text": "ليست الحياة ما نعيشه، بل ما نتذكره ونرويه لنحيا",
+      "by": "غابرييل غارسيا ماركيز"
+    },
+    "en": {
+      "text": "Life is not what one lived, but what one remembers and how one remembers it in order to recount it.",
+      "by": "Gabriel García Márquez"
+    }
+  },
+  {
+    "id": 16,
+    "page": 111,
+    "chapter": "life",
+    "enSource": "standard",
+    "ar": {
+      "text": "في ميادينِ الملاحظة، لا يحابي الحظُّ إلّا العقولَ المستعدّة",
+      "by": "لويس باستور"
+    },
+    "en": {
+      "text": "In the fields of observation, chance favours only the prepared mind.",
+      "by": "Louis Pasteur"
+    }
+  },
+  {
+    "id": 17,
+    "page": 119,
+    "chapter": "life",
+    "enSource": "popular",
+    "ar": {
+      "text": "رحلة الاكتشاف الحقيقية لا تنحصر في رؤية أرض جديدة، بل في الحصول على رؤى مختلفة",
+      "by": "مارسيل بروست"
+    },
+    "en": {
+      "text": "The real voyage of discovery consists not in seeking new landscapes, but in having new eyes.",
+      "by": "Marcel Proust"
+    },
+    "note": "Popular paraphrase of a passage in La Prisonnière; the book's Arabic follows the same paraphrase."
+  },
+  {
+    "id": 18,
+    "page": 155,
+    "chapter": "emotions",
+    "enSource": "standard",
+    "ar": {
+      "text": "نحن لا نتذكر الأيام.. بل نتذكر اللحظات",
+      "by": "تشيزاري بافيزي"
+    },
+    "en": {
+      "text": "We do not remember days, we remember moments.",
+      "by": "Cesare Pavese"
+    }
+  },
+  {
+    "id": 19,
+    "page": 165,
+    "chapter": "emotions",
+    "enSource": "standard",
+    "ar": {
+      "text": "قد يكونُ للدموعِ أحيانًا ثِقلُ الكلامِ ووَقعُه",
+      "by": "أوفيد"
+    },
+    "en": {
+      "text": "Tears at times have the weight of speech.",
+      "by": "Ovid"
+    }
+  },
+  {
+    "id": 20,
+    "page": 173,
+    "chapter": "emotions",
+    "enSource": "translated",
+    "ar": {
+      "text": "الخوفُ لا يمنعُ من المَوتِ، ولكنَّهُ يمْنعُ منَ الحَياةِ",
+      "by": "نَجِيب مَحْفُوظ"
+    },
+    "en": {
+      "text": "Fear does not prevent death; it prevents life.",
+      "by": "Naguib Mahfouz"
+    }
+  },
+  {
+    "id": 21,
+    "page": 189,
+    "chapter": "ethics",
+    "enSource": "translated",
+    "ar": {
+      "text": "إذا أتتك مذمتي من ناقص، فهي الشهادة لي بأني كاملُ",
+      "by": "أبو الطيب المتنبي"
+    },
+    "en": {
+      "text": "When my censure comes from one who is lacking, it is proof that I am whole.",
+      "by": "Al-Mutanabbi"
+    },
+    "note": "The verse traditionally opens «وإذا أتتك…»; the book omits the و. Kept as printed."
+  },
+  {
+    "id": 22,
+    "page": 193,
+    "chapter": "ethics",
+    "enSource": "original",
+    "ar": {
+      "text": "الكلماتُ الطيّبةُ قد تكونُ قصيرةً سهلةَ النطق، لكنّ أصداءها لا تنتهي أبدًا",
+      "by": "الأم تيريزا"
+    },
+    "en": {
+      "text": "Kind words can be short and easy to speak, but their echoes are truly endless.",
+      "by": "Mother Teresa"
+    }
+  },
+  {
+    "id": 23,
+    "page": 213,
+    "chapter": "ethics",
+    "enSource": "translated",
+    "ar": {
+      "text": "إذا تم العقل نقص الكلام",
+      "by": "علي بن أبي طالب"
+    },
+    "en": {
+      "text": "When the mind is complete, words grow few.",
+      "by": "Ali ibn Abi Talib"
+    }
+  },
+  {
+    "id": 24,
+    "page": 213,
+    "chapter": "ethics",
+    "enSource": "standard",
+    "ar": {
+      "text": "إنّما لنا أُذنانِ وفمٌ واحد لنسمعَ أكثرَ ونتكلّمَ أقلّ",
+      "by": "زينون الكِتْيَومي"
+    },
+    "en": {
+      "text": "We have two ears and one mouth, so that we may listen more and speak less.",
+      "by": "Zeno of Citium"
+    }
+  },
+  {
+    "id": 25,
+    "page": 213,
+    "chapter": "ethics",
+    "enSource": "standard",
+    "ar": {
+      "text": "الكلامُ مرآةُ النفس؛ فكما يتكلّمُ المرءُ يكون",
+      "by": "بوبليليوس سيروس"
+    },
+    "en": {
+      "text": "Speech is the mirror of the soul: as a man speaks, so is he.",
+      "by": "Publilius Syrus"
+    }
+  },
+  {
+    "id": 26,
+    "page": 221,
+    "chapter": "ethics",
+    "enSource": "original",
+    "ar": {
+      "text": "الصدقُ هو الفصلُ الأوّلُ في كتابِ الحكمة",
+      "by": "توماس جفرسون"
+    },
+    "en": {
+      "text": "Honesty is the first chapter in the book of wisdom.",
+      "by": "Thomas Jefferson"
+    }
+  },
+  {
+    "id": 27,
+    "page": 223,
+    "chapter": "ethics",
+    "enSource": "translated",
+    "ar": {
+      "text": "القُلُوبُ أَوْعِيَةُ الأَسْرَارِ، وَالشِّفَاهُ أَقْفَالُهَا، وَالأَلْسُنُ مَفَاتِيحُهَا",
+      "by": "عمر بن عبد العزيز"
+    },
+    "en": {
+      "text": "Hearts are the vessels of secrets; lips are their locks, and tongues their keys.",
+      "by": "Umar ibn Abd al-Aziz"
+    }
+  },
+  {
+    "id": 28,
+    "page": 225,
+    "chapter": "ethics",
+    "enSource": "translated",
+    "ar": {
+      "text": "صَلَاحُ أَمْرِكَ لِلأَخْلَاقِ مَرْجِعُهُ، فَقَوِّمِ النَّفْسَ بِالأَخْلَاقِ تَسْتَقِمِ",
+      "by": "أَحْمَد شَوْقِي"
+    },
+    "en": {
+      "text": "The good of your affairs returns to character; so set the soul right by character, and it will stand upright.",
+      "by": "Ahmed Shawqi"
+    }
+  },
+  {
+    "id": 29,
+    "page": 233,
+    "chapter": "success",
+    "enSource": "translated",
+    "ar": {
+      "text": "إذا غامرت في شرف مروم.. فلا تقنع بما دون النجوم",
+      "by": "المتنبي"
+    },
+    "en": {
+      "text": "When you venture after a coveted glory, settle for nothing short of the stars.",
+      "by": "Al-Mutanabbi"
+    }
+  },
+  {
+    "id": 30,
+    "page": 235,
+    "chapter": "success",
+    "enSource": "original",
+    "ar": {
+      "text": "الغرض من التعليم هو استبدال العقل الفارغ بعقل مفتوح",
+      "by": "مالكوم فوربس"
+    },
+    "en": {
+      "text": "Education’s purpose is to replace an empty mind with an open one.",
+      "by": "Malcolm Forbes"
+    }
+  },
+  {
+    "id": 31,
+    "page": 235,
+    "chapter": "success",
+    "enSource": "standard",
+    "ar": {
+      "text": "ما دُمتَ حيًّا فواصلْ تعلُّمَ كيف تحيا",
+      "by": "سينيكا"
+    },
+    "en": {
+      "text": "As long as you live, keep learning how to live.",
+      "by": "Seneca"
+    }
+  },
+  {
+    "id": 32,
+    "page": 237,
+    "chapter": "success",
+    "enSource": "translated",
+    "ar": {
+      "text": "من جدّ وجد، ومن زرع حصد",
+      "by": "مثل عربي"
+    },
+    "en": {
+      "text": "Who strives, finds; who sows, reaps.",
+      "by": "Arabic proverb"
+    },
+    "note": "Printed attribution is «مثل عربي خالد»; shortened."
+  },
+  {
+    "id": 33,
+    "page": 239,
+    "chapter": "success",
+    "enSource": "standard",
+    "ar": {
+      "text": "الناجحون يقدرون على النجاح لأنهم يعتقدون أنهم يقدرون",
+      "by": "فيرجيل"
+    },
+    "en": {
+      "text": "They can because they think they can.",
+      "by": "Virgil"
+    }
+  },
+  {
+    "id": 34,
+    "page": 255,
+    "chapter": "nature",
+    "enSource": "translated",
+    "ar": {
+      "text": "وَمَنْ يَتَهَيَّبْ صُعُودَ الجِبَالِ.. يَعِشْ أَبَدَ الدَّهْرِ بَيْنَ الحُفَرِ",
+      "by": "أَبُو القَاسِم الشَّابِّيّ"
+    },
+    "en": {
+      "text": "Whoever shrinks from climbing mountains will live forever among the hollows.",
+      "by": "Abu al-Qasim al-Shabbi"
+    }
+  },
+  {
+    "id": 35,
+    "page": 255,
+    "chapter": "nature",
+    "enSource": "original",
+    "ar": {
+      "text": "بعدَ أن تصعدَ تلًّا عاليًا، لا تجدُ إلا أنَّ هناكَ تلالًا كثيرةً أخرى ما زالَ عليكَ أن تصعدَها",
+      "by": "نيلسون مانديلا"
+    },
+    "en": {
+      "text": "After climbing a great hill, one only finds that there are many more hills to climb.",
+      "by": "Nelson Mandela"
+    }
+  },
+  {
+    "id": 36,
+    "page": 261,
+    "chapter": "nature",
+    "enSource": "standard",
+    "ar": {
+      "text": "طَرِيقُ الأَلْفِ مِيلٍ يَبْدَأُ بِخُطْوَةٍ وَاحِدَةٍ",
+      "by": "لَاوتسو"
+    },
+    "en": {
+      "text": "A journey of a thousand miles begins with a single step.",
+      "by": "Lao Tzu"
+    }
+  },
+  {
+    "id": 37,
+    "page": 261,
+    "chapter": "nature",
+    "enSource": "translated",
+    "ar": {
+      "text": "مَنْ كَانَتْ بِدَايَتُهُ مُحْرِقَةً، كَانَتْ نِهَايَتُهُ مُشْرِقَةً",
+      "by": "ابْنُ عَطَاءِ اللهِ السَّكَنْدَرِيُّ"
+    },
+    "en": {
+      "text": "One whose beginning burns will find an ending that shines.",
+      "by": "Ibn ‘Ata’illah al-Iskandari"
+    },
+    "note": "Attribution medium-confidence: the canonical Hikam reads «مَن أشرقت بدايته أشرقت نهايته»."
+  },
+  {
+    "id": 38,
+    "page": 263,
+    "chapter": "nature",
+    "enSource": "original",
+    "ar": {
+      "text": "الأرضُ تضحكُ في الزهور",
+      "by": "رالف والدو إمرسون"
+    },
+    "en": {
+      "text": "Earth laughs in flowers.",
+      "by": "Ralph Waldo Emerson"
+    }
+  },
+  {
+    "id": 39,
+    "page": 263,
+    "chapter": "nature",
+    "enSource": "translated",
+    "ar": {
+      "text": "إن أطلت التأمل في وردة.. لن تزحزحك العاصفة",
+      "by": "محمود درويش"
+    },
+    "en": {
+      "text": "If you gaze long at a rose, no storm will move you.",
+      "by": "Mahmoud Darwish"
+    }
+  },
+  {
+    "id": 40,
+    "page": 265,
+    "chapter": "nature",
+    "enSource": "popular",
+    "ar": {
+      "text": "لا تخبرني أن القمر يضيء، بل أرني وميض الضوء على زجاج مكسور",
+      "by": "أنطون تشيخوف"
+    },
+    "en": {
+      "text": "Don’t tell me the moon is shining; show me the glint of light on broken glass.",
+      "by": "Anton Chekhov"
+    },
+    "note": "Popular condensation of an 1886 Chekhov letter."
+  }
+]
