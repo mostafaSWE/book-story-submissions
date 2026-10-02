@@ -17,9 +17,9 @@
   // Per-IP submission limit (Workers Rate Limiting). namespace_id is any account-unique integer.
   "ratelimits": [
     { "name": "SUBMIT_LIMITER", "namespace_id": "4171", "simple": { "limit": 5, "period": 60 } }
-  ]
+  ],
+  // The site's address. Cloudflare creates the DNS record and certificate for it.
+  "routes": [{ "pattern": "anta.readertowriter.net", "custom_domain": true }]
   // Secrets (set with `wrangler secret put`, never committed):
   //   PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, IP_HASH_SECRET
-  // Custom domain (attach when ready):
-  //   "routes": [{ "pattern": "anta.readertowriter.net", "custom_domain": true }]
 }
