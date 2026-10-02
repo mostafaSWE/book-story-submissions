@@ -14,7 +14,7 @@ Two public sites and one shared admin. They share the Supabase project (one tabl
 | Database table | `public.submissions` (+ Storage buckets `receipts`, `story-pages`) | `public.anta_contributions` |
 | Public routes | `/`, `/share`, `/terms`, `/api/submissions` | `/ar`, `/en`, `/<lang>/write`, `/<lang>/privacy` |
 | Admin (shared, on readertowriter.net) | `/admin/reader-to-writer`, `/admin/reader-to-writer/submissions/[id]`, `/api/admin/reader-to-writer/export` | `/admin/anta`, `/admin/anta/entries/[id]`, `/api/admin/anta/export` (`?status=selected`) |
-| Deploys | Workers Builds on push to `main` (repo root, `npm run deploy`) | `cd sites/anta && npm run deploy` (or a Workers Builds project with root directory `sites/anta`) — see `sites/anta/README.md` |
+| Deploys | By hand, from a clean clone of `main`: `npm ci && npm run deploy` (pushing does not deploy) | By hand, from a clean clone of `main`: `cd sites/anta && npm ci && npm run deploy` — see `sites/anta/README.md` |
 
 - `/admin` is an overview with one section per book. Each book is a module in `src/books/<slug>/` (table, queries, list/detail views, CSV mapping, status logic), listed in `src/books/registry.js`; a module never imports another book's module. Adding a book = one more module + one line in the registry.
 - Same admin login, credentials and session cookie for both books. Old admin URLs (`/admin?<filters>`, `/admin/submissions/[id]`, `/api/admin/export`) redirect to the «كتاب من قارئ إلى كاتب» paths.
@@ -167,11 +167,14 @@ Preview the Cloudflare runtime build locally:
 npm run preview
 ```
 
-Deploy with:
+Deploy with (from a clean clone, e.g. `git clone https://github.com/mostafaSWE/book-story-submissions.git`, and `npx wrangler login` first):
 
 ```bash
+npm ci
 npm run deploy
 ```
+
+All runtime configuration lives in the Worker's secrets in Cloudflare. OpenNext would embed any `.env*` file it finds into the Worker, so `npm run deploy` refuses to upload if one was embedded (`scripts/check-bundle-env.mjs`) — that is why it must run from a clean clone, not from a folder with `.env` files. Pushing to GitHub does not deploy.
 
 ## Cloudflare Deployment
 
