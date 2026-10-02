@@ -186,16 +186,22 @@ html[lang="en"] .tagline { font-family: var(--quote-en); font-style: italic; lin
           mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
 }
 .row { overflow: hidden; direction: ltr; /* drift is always left → right, in every language */ }
+/* Both sets share one grid cell; the copy sits one set-width further by transform, not by layout.
+   So when the quote font arrives and the sets widen, no box changes position (no layout shift). */
 .track {
-  display: flex; width: max-content;
+  display: grid; width: max-content;
   animation: drift var(--dur, 120s) linear infinite;
   will-change: transform;
 }
-.set { display: flex; margin: 0; padding: 0; list-style: none; }
+.set { grid-area: 1 / 1; display: flex; margin: 0; padding: 0; list-style: none; }
+.set + .set { transform: translate3d(100%, 0, 0); }
 @keyframes drift {
-  from { transform: translate3d(-50%, 0, 0); }
+  from { transform: translate3d(-100%, 0, 0); }
   to   { transform: translate3d(0, 0, 0); }
 }
+/* Font gate (see [lang]/page.jsx): invisible, space kept, until the quote typeface is ready; then fade in. */
+html.q-wait .rows, html.q-wait .static-quotes { visibility: hidden; opacity: 0; }
+@media (prefers-reduced-motion: no-preference) { .rows { transition: opacity .45s ease; } }
 .quotes:hover .track,
 .quotes:focus-within .track,
 .quotes.is-paused .track { animation-play-state: paused; }

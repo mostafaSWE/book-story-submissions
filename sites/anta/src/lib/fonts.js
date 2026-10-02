@@ -10,7 +10,7 @@ const FACES = {
   en: {
     home: ["news-400", "news-400i", "plexar-400"],
     write: ["news-400", "news-400i", "plexar-400"],
-    privacy: ["news-400", "plexar-400"]
+    privacy: ["news-400", "news-400i", "plexar-400"]
   }
 };
 

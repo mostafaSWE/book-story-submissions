@@ -45,7 +45,8 @@ export default async function RootLayout({ children, params }) {
   if (!isLocale(lang)) notFound(); // e.g. /fr
   const m = getMessages(lang);
   return (
-    <html lang={lang} dir={m.meta.dir}>
+    // suppressHydrationWarning: the landing page's font gate toggles a class on <html> before hydration.
+    <html lang={lang} dir={m.meta.dir} suppressHydrationWarning>
       <body>
         <a className="skip" href="#main">{m.skip}</a>
         {children}

@@ -102,16 +102,10 @@
         "p": "We keep contributions while work on the second volume continues, then delete the contact details of those that were not chosen."
       },
       {
-        "h": "Your rights",
-        "p": "You can ask to see, correct or delete your details, or withdraw your consent before publication, {contact}."
-      },
-      {
         "h": "Cookies",
         "p": "We use a single cookie to remember your language. No tracking or advertising tools."
       }
     ],
-    "contactWithEmail": "by writing to {email}",
-    "contactWithout": "by contacting the book team",
-    "updated": "Last updated: 1 October 2026"
+    "updated": "Last updated: 2 October 2026"
   }
 }

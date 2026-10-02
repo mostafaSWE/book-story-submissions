@@ -14,8 +14,9 @@ function Item({ q }) {
 }
 
 /**
- * Rows drift left → right in every language. Each track holds two identical sets and animates
- * from -50% to 0, so the loop is seamless; duration = measured width / speed.
+ * Rows drift left → right in every language. Each track holds two identical sets (stacked; the copy is
+ * offset by one set-width in CSS) and animates from -100% to 0, so the loop is seamless;
+ * duration = measured width / speed.
  */
 export default function Marquee({ quotes, labels }) {
   const byId = Object.fromEntries(quotes.map((q) => [q.id, q]));

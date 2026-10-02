@@ -20,7 +20,6 @@
   ]
   // Secrets (set with `wrangler secret put`, never committed):
   //   PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, IP_HASH_SECRET
-  // Optional runtime var: PRIVACY_CONTACT_EMAIL (shown on /ar/privacy and /en/privacy).
   // Custom domain (attach when ready):
   //   "routes": [{ "pattern": "anta.readertowriter.net", "custom_domain": true }]
 }

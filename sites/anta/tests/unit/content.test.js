@@ -28,10 +28,9 @@ describe("translations", () => {
     expect(Object.keys(RULES).sort()).toEqual(["body", "consent", "email", "name", "phone", "title"]);
     for (const m of Object.values(all)) for (const c of codes) expect(m.errors[c], c).toBeTruthy();
   });
-  it("privacy sections line up between languages and keep the {contact} slot", () => {
+  it("privacy sections line up between languages and contain no unfilled placeholders", () => {
     expect(en.privacyPage.sections.length).toBe(ar.privacyPage.sections.length);
-    expect(ar.privacyPage.sections.filter((s) => s.p.includes("{contact}")).length).toBe(1);
-    expect(en.privacyPage.sections.filter((s) => s.p.includes("{contact}")).length).toBe(1);
+    for (const m of [ar, en]) for (const s of m.privacyPage.sections) expect(s.p, s.h).not.toMatch(/[{}]/);
   });
   it("approved book lines are verbatim", () => {
     expect(ar.formTitle).toBe("مساحةُ إبداعك");

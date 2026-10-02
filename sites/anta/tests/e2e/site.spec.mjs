@@ -213,9 +213,10 @@ test.describe("other pages", () => {
   test("privacy note in both languages", async ({ page }) => {
     await page.goto("/ar/privacy");
     await expect(page.locator("h1")).toHaveText("ملاحظة الخصوصية");
-    await expect(page.locator(".privacy-list > div")).toHaveCount(7);
+    await expect(page.locator(".privacy-list > div")).toHaveCount(6);
     await page.goto("/en/privacy");
     await expect(page.locator("h1")).toHaveText("Privacy note");
+    await expect(page.locator(".privacy-list > div")).toHaveCount(6);
   });
 
   test("unknown address → the site's own 404", async ({ page }) => {

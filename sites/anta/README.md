@@ -50,7 +50,7 @@ npm run deploy                                       # build → guard → popul
 ```
 
 Always deploy with `npm run deploy` / `npx opennextjs-cloudflare deploy` (not `wrangler deploy`): it also uploads the
-prerendered pages' cache. Optional runtime var: `PRIVACY_CONTACT_EMAIL` (shown on the privacy note).
+prerendered pages' cache.
 
 Workers Builds alternative: root directory `sites/anta`, build command `npm ci && npm run build:cloudflare && node scripts/check-bundle-env.mjs`,
 deploy command `npx opennextjs-cloudflare deploy`, build watch paths `sites/anta/**`.
