@@ -12,6 +12,8 @@ const nextConfig = {
   outputFileTracingRoot: fileURLToPath(new URL(".", import.meta.url)),
   turbopack: { root: fileURLToPath(new URL(".", import.meta.url)) },
   poweredByHeader: false,
+  // The stylesheet is small (~6 KB gzipped): inline it so the first paint doesn't wait for a CSS request on slow mobile.
+  experimental: { inlineCss: true },
   async redirects() {
     // "/" → the language the visitor chose before (cookie), otherwise Arabic.
     return [
