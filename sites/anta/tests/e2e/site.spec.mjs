@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { AR_INDIC_PHONE, fillForm, localRows, openForm, submitAndWaitForThanks, testEmail } from "./helpers.mjs";
+import { AR_INDIC_PHONE, PACED, beforeSubmit, fillForm, localRows, openForm, submitAndWaitForThanks, testEmail } from "./helpers.mjs";
 
 const MOON = String.fromCodePoint(0x1f319);
 const errorText = (page, field) => page.locator(`#f-${field}-err`);
@@ -138,7 +138,7 @@ test.describe("form", () => {
     await page.click("[class*='button-quiet']"); // write another (keeps name and contact)
     await expect(page.locator("#f-email")).toHaveValue(email);
     await fillForm(page, { body: v.body, consent: true });
-    await page.waitForTimeout(2600);
+    await beforeSubmit(page);
     await page.click("button.submit");
     await expect(page.locator(".form-status")).toHaveText("وصلتنا هذه الكلمات منك من قبل.");
   });
@@ -166,6 +166,11 @@ test.describe("form", () => {
 
   test("per-connection limit: the 6th submission within a minute is refused", async ({ page }) => {
     test.skip(!!process.env.NO_LIMITER, "limiter binding not available in this runtime");
+    if (PACED) {
+      // Deployed site: every test shares this machine's IP, so start (and leave) with a quiet minute.
+      test.setTimeout(240_000);
+      await page.waitForTimeout(61_000);
+    }
     const ip = `203.0.113.${Math.floor(Math.random() * 250) + 1}`;
     await openForm(page, "ar", { ip });
     let refused = false;
@@ -189,6 +194,7 @@ test.describe("form", () => {
       }
     }
     expect(refused).toBe(true);
+    if (PACED) await page.waitForTimeout(61_000);
   });
 
   test("works without JavaScript (plain form post)", async ({ browser }) => {
@@ -201,6 +207,7 @@ test.describe("form", () => {
     await page.fill("#f-email", email);
     await page.fill("#f-phone", "0501234567");
     await page.check("#f-consent", { force: true });
+    await beforeSubmit(page, 0);
     await page.click("button.submit");
     await expect(page.locator("#thanks-heading")).toBeVisible({ timeout: 15_000 });
     const rows = await localRows(email);

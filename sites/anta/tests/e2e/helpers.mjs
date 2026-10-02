@@ -37,8 +37,18 @@ export async function openForm(page, lang = "ar", { ip } = {}) {
   await page.waitForFunction(() => document.querySelector('input[name="startedAt"]')?.value);
 }
 
+/**
+ * Waits before a submission: a human can't fill the form in < 2.5 s, so neither may the test.
+ * E2E_PACE_MS (for runs against a deployed site, where the real per-IP limits apply to the one machine
+ * running the tests) spaces submissions out, e.g. 13000 → under 5 a minute.
+ */
+export const PACED = Number(process.env.E2E_PACE_MS) > 0;
+export function beforeSubmit(page, min = 2600) {
+  return page.waitForTimeout(Math.max(min, Number(process.env.E2E_PACE_MS) || 0));
+}
+
 export async function submitAndWaitForThanks(page) {
-  await page.waitForTimeout(2600); // a human can't fill the form in < 2.5 s; neither may the test
+  await beforeSubmit(page);
   await page.click("button.submit");
   await expect(page.locator("#thanks-heading")).toBeVisible({ timeout: 15_000 });
 }
