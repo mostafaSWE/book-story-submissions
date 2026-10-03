@@ -1,6 +1,6 @@
 # «أنت الكاتب» — anta.readertowriter.net
 
-Public site where readers of «أنت الكاتب» (Abdullah Al-Hashemi, Dar Al-Afaq) send their own wisdom; the best is
+Public site where readers of «أنت الكاتب» (Abdullah Al-Hashemi) send their own wisdom; the best is
 published, with the writer's name, in the second volume. Arabic first, English second.
 
 Self-contained Next.js 16 app deployed as its own Cloudflare Worker (`anta-alkateb`). It imports nothing from the
